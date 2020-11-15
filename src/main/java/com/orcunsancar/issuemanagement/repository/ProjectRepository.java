@@ -14,11 +14,12 @@ import com.orcunsancar.issuemanagement.entity.Project;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long>{
 
-	List<Project> getAllByProjectCode(String projectCode);
+	Project getByProjectCode(String projectCode);
 	
-	List<Project> getAllByProjectCodeContains(String projectCode);
+	List<Project> getByProjectCodeContains(String projectCode);
 	
 	Page<Project> findAll(Pageable pageable);
 	
 	List<Project> findAll(Sort sort);
+	Project getByProjectCodeAndIdNot(String projectCode, Long id);
 }
