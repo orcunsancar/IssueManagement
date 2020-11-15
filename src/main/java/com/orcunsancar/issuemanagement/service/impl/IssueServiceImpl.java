@@ -2,6 +2,8 @@ package com.orcunsancar.issuemanagement.service.impl;
 
 import java.util.Arrays;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,21 +43,26 @@ public class IssueServiceImpl implements IssueService{
 
 	@Override
 	public IssueDto getById(Long id) {
-		return null;
+		Issue issue = issueRepository.getOne(id);
+		return modelMapper.map(issue, IssueDto.class);
 	}
 
 	@Override
 	public TPage<IssueDto> getAllPageable(Pageable pageable) {
 		Page<Issue> data = issueRepository.findAll(pageable);
-		TPage page = new TPage<IssueDto>();
-		IssueDto[] dtos = modelMapper.map(data.getContent(), IssueDto[].class);
-		page.setStat(data, Arrays.asList(dtos));
-		return page;
+        TPage<IssueDto> response = new TPage<IssueDto>();
+        response.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), IssueDto[].class)));
+        return response;
 	}
 
 	@Override
-	public Boolean delete(IssueDto issue) {
-		// TODO Auto-generated method stub
+	public Boolean delete(Long issueId) {
+		issueRepository.deleteById(issueId);
+		return true;
+	}
+
+	@Override
+	public IssueDto update(Long id,IssueDto issue) {
 		return null;
 	}
 
