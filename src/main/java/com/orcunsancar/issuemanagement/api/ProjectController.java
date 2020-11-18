@@ -18,10 +18,12 @@ import com.orcunsancar.issuemanagement.util.ApiPaths;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping(ApiPaths.ProjectCtrl.CTRL)
 @Api(value = ApiPaths.ProjectCtrl.CTRL, description = "Project APIs")
+@Slf4j
 public class ProjectController {
 
 	private final ProjectServiceImpl projectServiceImpl;
@@ -33,6 +35,8 @@ public class ProjectController {
 	@GetMapping("/{id}")
 	@ApiOperation(value = "Get By Id Operation", response = ProjectDto.class)
 	public ResponseEntity<ProjectDto> getById(@PathVariable(value = "id", required = true) Long id) {
+		log.info("ProjectController->GetByID-> : ");
+		log.debug("ProjectController->GetByID->PARAM: " + id);
 		ProjectDto projectDto = projectServiceImpl.getById(id);
 		return ResponseEntity.ok(projectDto);
 	}
