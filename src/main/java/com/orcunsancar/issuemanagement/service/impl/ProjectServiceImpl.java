@@ -1,5 +1,6 @@
 package com.orcunsancar.issuemanagement.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -11,6 +12,7 @@ import com.orcunsancar.issuemanagement.dto.ProjectDto;
 import com.orcunsancar.issuemanagement.entity.Project;
 import com.orcunsancar.issuemanagement.repository.ProjectRepository;
 import com.orcunsancar.issuemanagement.service.ProjectService;
+import com.orcunsancar.issuemanagement.util.TPage;
 
 @Service
 public class ProjectServiceImpl implements ProjectService{
@@ -56,9 +58,12 @@ public class ProjectServiceImpl implements ProjectService{
 	}
 
 	@Override
-	public Page<Project> getAllPageable(Pageable pageable) {
-		return projectRepository.findAll(pageable);
-	}
+	 public TPage<ProjectDto> getAllPageable(Pageable pageable) {
+        Page<Project> data = projectRepository.findAll(pageable);
+        TPage<ProjectDto> respnose = new TPage<ProjectDto>();
+        respnose.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), ProjectDto[].class)));
+        return respnose;
+    }
 
 	@Override
 	public Boolean delete(Project project) {

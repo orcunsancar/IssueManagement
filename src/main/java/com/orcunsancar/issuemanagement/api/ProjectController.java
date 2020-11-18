@@ -2,6 +2,7 @@ package com.orcunsancar.issuemanagement.api;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.orcunsancar.issuemanagement.dto.ProjectDto;
 import com.orcunsancar.issuemanagement.service.impl.ProjectServiceImpl;
 import com.orcunsancar.issuemanagement.util.ApiPaths;
+import com.orcunsancar.issuemanagement.util.TPage;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +34,13 @@ public class ProjectController {
 		this.projectServiceImpl = projectServiceImpl;
 	}
 
+	@GetMapping("/pagination")
+	@ApiOperation(value = "Get By Pagination Operation", response = ProjectDto.class)
+	public ResponseEntity<TPage<ProjectDto>> getAllByPagination(Pageable pageable) {
+		TPage<ProjectDto> data = projectServiceImpl.getAllPageable(pageable);
+		return ResponseEntity.ok(data);
+	}
+	
 	@GetMapping("/{id}")
 	@ApiOperation(value = "Get By Id Operation", response = ProjectDto.class)
 	public ResponseEntity<ProjectDto> getById(@PathVariable(value = "id", required = true) Long id) {
