@@ -1,9 +1,11 @@
 package com.orcunsancar.issuemanagement.repository;
 
+import com.orcunsancar.issuemanagement.entity.IssueHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.orcunsancar.issuemanagement.entity.IssueHistory;
+import java.util.List;
 
-public interface IssueHistoryRepository extends JpaRepository<IssueHistory, Long>{
+public interface IssueHistoryRepository extends JpaRepository<IssueHistory, Long> {
 
+    List<IssueHistory> getByIssueIdOrderById(Long id);
 }

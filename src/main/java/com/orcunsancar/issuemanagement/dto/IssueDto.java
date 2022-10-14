@@ -1,14 +1,13 @@
 package com.orcunsancar.issuemanagement.dto;
 
-import java.util.Date;
-
 import com.orcunsancar.issuemanagement.entity.IssueStatus;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -29,5 +28,5 @@ public class IssueDto {
     private UserDto assignee;
     @ApiModelProperty(required = true,value = "Project")
     private ProjectDto project;
-	
+    private Long projectId;
 }

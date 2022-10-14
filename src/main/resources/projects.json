@@ -13,5 +13,32 @@
     "_class": "com.orcunsancar.issuemanagement.entity.Project",
     "projectCode" : "CRM-S",
     "projectName": "CRM Project for Sales"
+  },
+  {
+    "_class": "com.orcunsancar.issuemanagement.entity.Project",
+    "projectCode" : "CRM-B",
+    "projectName": "CRM Project for Bussiness"
+  },
+  {
+    "_class": "com.orcunsancar.issuemanagement.entity.Project",
+    "projectCode" : "ERP-B",
+    "projectName": "ERP Project for Bussiness"
+  },
+  {
+    "_class": "com.orcunsancar.issuemanagement.entity.Project",
+    "projectCode" : "TP",
+    "projectName": "Test Project"
+  },
+  {
+    "_class": "com.orcunsancar.issuemanagement.entity.User",
+    "username" : "osancar",
+    "nameSurname": "Orcun Sancar",
+    "email":"orcun.sancar@gmail.com"
+  },
+  {
+    "_class": "com.orcunsancar.issuemanagement.entity.User",
+    "username" : "jdoe",
+    "nameSurname": "John Doe",
+    "email":"jdoe@gmail.com"
   }
 ]

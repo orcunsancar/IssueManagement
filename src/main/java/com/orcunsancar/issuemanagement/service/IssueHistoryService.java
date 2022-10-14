@@ -1,17 +1,23 @@
 package com.orcunsancar.issuemanagement.service;
 
-
-
-import org.springframework.data.domain.Page;
+import com.orcunsancar.issuemanagement.dto.IssueHistoryDto;
+import com.orcunsancar.issuemanagement.entity.Issue;
+import com.orcunsancar.issuemanagement.util.TPage;
 import org.springframework.data.domain.Pageable;
 
-
-import com.orcunsancar.issuemanagement.entity.IssueHistory;
+import java.util.List;
 
 public interface IssueHistoryService {
 
-	IssueHistory save(IssueHistory issueHistory);
-	IssueHistory getById(Long id);
-	Page<IssueHistory> getAllPageable(Pageable pageable);
-	Boolean delete(IssueHistory issueHistory);
+    IssueHistoryDto save(IssueHistoryDto issueHistory);
+
+    IssueHistoryDto getById(Long id);
+
+    List<IssueHistoryDto> getByIssueId(Long id);
+
+    TPage<IssueHistoryDto> getAllPageable(Pageable pageable);
+
+    Boolean delete(IssueHistoryDto issueHistory);
+
+    void addHistory(Long id, Issue issue);
 }

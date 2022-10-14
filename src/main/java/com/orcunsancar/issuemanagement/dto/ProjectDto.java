@@ -1,14 +1,12 @@
 package com.orcunsancar.issuemanagement.dto;
 
-
-
-import javax.validation.constraints.NotNull;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 @Data
 @AllArgsConstructor
@@ -24,4 +22,10 @@ public class ProjectDto {
     @ApiModelProperty(required = true,value = "Code Of Project")
     private String projectCode;
 
+    @NotNull
+    @ApiModelProperty(required = true,value = "Project Manager ID")
+    private Long managerId;
+
+    @ApiModelProperty(required = true,value = "Project Manager Name")
+    private UserDto manager;
 }

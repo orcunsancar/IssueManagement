@@ -1,6 +1,6 @@
 package com.orcunsancar.issuemanagement.api;
 
-import javax.validation.Valid;
+import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +20,7 @@ import com.orcunsancar.issuemanagement.util.TPage;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -28,46 +29,50 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProjectController {
 
-	private final ProjectServiceImpl projectServiceImpl;
+    private final ProjectServiceImpl projectServiceImpl;
 
-	public ProjectController(ProjectServiceImpl projectServiceImpl) {
-		this.projectServiceImpl = projectServiceImpl;
-	}
+    public ProjectController(ProjectServiceImpl projectServiceImpl) {
+        this.projectServiceImpl = projectServiceImpl;
+    }
 
-	@GetMapping("/pagination")
-	@ApiOperation(value = "Get By Pagination Operation", response = ProjectDto.class)
-	public ResponseEntity<TPage<ProjectDto>> getAllByPagination(Pageable pageable) {
-		TPage<ProjectDto> data = projectServiceImpl.getAllPageable(pageable);
-		return ResponseEntity.ok(data);
-	}
-	
-	@GetMapping("/{id}")
-	@ApiOperation(value = "Get By Id Operation", response = ProjectDto.class)
-	public ResponseEntity<ProjectDto> getById(@PathVariable(value = "id", required = true) Long id) {
-		log.info("ProjectController->GetByID-> : ");
-		log.debug("ProjectController->GetByID->PARAM: " + id);
-		ProjectDto projectDto = projectServiceImpl.getById(id);
-		return ResponseEntity.ok(projectDto);
-	}
+    @GetMapping("/pagination")
+    @ApiOperation(value = "Get By Pagination Operation", response = ProjectDto.class)
+    public ResponseEntity<TPage<ProjectDto>> getAllByPagination(Pageable pageable) {
+        TPage<ProjectDto> data = projectServiceImpl.getAllPageable(pageable);
+        return ResponseEntity.ok(data);
+    }
 
-	@PostMapping
-	@ApiOperation(value = "Create Operation", response = ProjectDto.class)
-	public ResponseEntity<ProjectDto> createProject(@Valid @RequestBody ProjectDto project) {
-		return ResponseEntity.ok(projectServiceImpl.save(project));
-	}
+    @GetMapping()
+    @ApiOperation(value = "Get All Operation", response = ProjectDto.class , responseContainer = "List")
+    public ResponseEntity<List<ProjectDto>> getAll() {
+        List<ProjectDto> data = projectServiceImpl.getAll();
+        return ResponseEntity.ok(data);
+    }
 
-	@PutMapping("/{id}")
-	@ApiOperation(value = "Update Operation", response = ProjectDto.class)
-	public ResponseEntity<ProjectDto> updateProject(@PathVariable(value = "id", required = true) Long id,
-			@Valid @RequestBody ProjectDto project) {
+    @GetMapping("/{id}")
+    @ApiOperation(value = "Get By Id Operation", response = ProjectDto.class)
+    public ResponseEntity<ProjectDto> getById(@PathVariable(value = "id", required = true) Long id) {
+        log.info("ProjectController-> GetByID ");
+        log.debug("ProjectController-> GetByID -> PARAM:" + id);
+        ProjectDto projectDto = projectServiceImpl.getById(id);
+        return ResponseEntity.ok(projectDto);
+    }
 
-		return ResponseEntity.ok(projectServiceImpl.update(id, project));
-	}
+    @PostMapping
+    @ApiOperation(value = "Create Operation", response = ProjectDto.class)
+    public ResponseEntity<ProjectDto> createProject(@Valid @RequestBody ProjectDto project) {
+        return ResponseEntity.ok(projectServiceImpl.save(project));
+    }
 
-	@DeleteMapping("/{id}")
-	@ApiOperation(value = "Delete Operation", response = Boolean.class)
-	public ResponseEntity<Boolean> delete(@PathVariable(value = "id", required = true) Long id) {
-		return ResponseEntity.ok(projectServiceImpl.delete(id));
-	}
+    @PutMapping("/{id}")
+    @ApiOperation(value = "Update Operation", response = ProjectDto.class)
+    public ResponseEntity<ProjectDto> updateProject(@PathVariable(value = "id", required = true) Long id, @Valid @RequestBody ProjectDto project) {
+        return ResponseEntity.ok(projectServiceImpl.update(id, project));
+    }
 
+    @DeleteMapping("/{id}")
+    @ApiOperation(value = "Delete Operation", response = Boolean.class)
+    public ResponseEntity<Boolean> delete(@PathVariable(value = "id", required = true) Long id) {
+        return ResponseEntity.ok(projectServiceImpl.delete(id));
+    }
 }
